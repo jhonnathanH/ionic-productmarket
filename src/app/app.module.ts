@@ -11,17 +11,41 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { ProductServiceProvider } from '../providers/product-service/product-service';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { HttpModule  } from '@angular/http';
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { AddProductPage } from '../pages/add-product/add-product';
+import { ChartsModule } from 'ng2-charts';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyAgN5hiWEn64nhApz7Inr4jYiTB--H0KVY",
+  authDomain: "productmarketjh.firebaseapp.com",
+  databaseURL: "https://productmarketjh.firebaseio.com",
+  projectId: "productmarketjh",
+  storageBucket: "productmarketjh.appspot.com",
+  messagingSenderId: "908569987624"
+};
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AddProductPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    HttpModule,
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,12 +53,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AddProductPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    ProductServiceProvider,
+    AuthServiceProvider,
+    UserServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
