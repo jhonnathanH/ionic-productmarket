@@ -14,5 +14,32 @@
 
 
 <ion-content padding>
+   
 
+
+    <ion-card>
+      
+        <canvas baseChart  *ngIf="widgets"
+         
+        width="300"
+        height="200"
+            [datasets]="widgets"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [colors]="lineChartColors"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"
+            ></canvas>
+        <ion-card-content>
+          <ion-card-title>
+            Nine Inch Nails Live
+            </ion-card-title>
+          <p>
+            The most popular industrial group ever, and largely
+            responsible for bringing the music to a mass audience.
+          </p>
+        </ion-card-content>
+      </ion-card>
 </ion-content>

@@ -20,6 +20,7 @@ import { HttpModule  } from '@angular/http';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { AddProductPage } from '../pages/add-product/add-product';
 import { ChartsModule } from 'ng2-charts';
+import { InfoProductPage } from '../pages/info-product/info-product';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAgN5hiWEn64nhApz7Inr4jYiTB--H0KVY",
@@ -36,7 +37,8 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    AddProductPage
+    AddProductPage,
+    InfoProductPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,8 @@ export const firebaseConfig = {
     ContactPage,
     HomePage,
     TabsPage,
-    AddProductPage
+    AddProductPage,
+    InfoProductPage
   ],
   providers: [
     StatusBar,

@@ -6,37 +6,27 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-list-header *ngIf="true">
+    <ion-list-header *ngIf="true" text-center>
       Lista de Productos
     </ion-list-header>
     <ion-item *ngFor="let product of productService.listProducts | async; let i=index">
       <ion-grid>
         <ion-row>
           <ion-col col-2>
-
-            <img src="{{product.thumbnailImageUrl}}" />
+            <div *ngIf="!product.thumbnailImageUrl">
+              <img src="assets/imgs/noPhoto.png" />
+            </div>
+            <div *ngIf="product.thumbnailImageUrl">
+                <img src="{{product.thumbnailImageUrl}}" />
+            </div>
           </ion-col>
-          <!-- <ion-col col-8>
+          <ion-col col-8 (click)="goToDetails(product)">
             <div>
               <h2 class="product-name"> {{product.name}} </h2>
+              <h3 class="product-name"><ion-note>Categoria: </ion-note> {{product.brand}} </h3>
             </div>
-          </ion-col> -->
-          <ion-col col-8>
-
-              <canvas baseChart
-               
-              width="300"
-              height="200"
-                  [datasets]="lineChartData"
-                  [labels]="lineChartLabels"
-                  [options]="lineChartOptions"
-                  [colors]="lineChartColors"
-                  [legend]="lineChartLegend"
-                  [chartType]="lineChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"
-                  ></canvas>
           </ion-col>
+        
           <ion-col col-2>
             <button  (click)="addRegistry(product)">
               <ion-icon color="dark" name="md-add"></ion-icon>
