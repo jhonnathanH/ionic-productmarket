@@ -7,39 +7,59 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>infoProduct</ion-title>
+    <ion-title>Detalles del Producto</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-   
 
 
-    <ion-card>
-      
-        <canvas baseChart  *ngIf="widgets"
-         
-        width="300"
-        height="200"
-            [datasets]="widgets"
-            [labels]="lineChartLabels"
-            [options]="lineChartOptions"
-            [colors]="lineChartColors"
-            [legend]="lineChartLegend"
-            [chartType]="lineChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"
-            ></canvas>
-        <ion-card-content>
-          <ion-card-title>
-            Nine Inch Nails Live
-            </ion-card-title>
-          <p>
-            The most popular industrial group ever, and largely
-            responsible for bringing the music to a mass audience.
-          </p>
-        </ion-card-content>
-      </ion-card>
+
+  <ion-card>
+
+    <canvas baseChart *ngIf="widgets" width="300" height="200" [datasets]="widgets" [labels]="lineChartLabels"
+      [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
+      (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+    <ion-card-content>
+      <ion-card-title>
+        <ion-note> {{product.name}} </ion-note>
+      </ion-card-title>
+
+      <div>
+        <ion-icon class="red" name="arrow-dropup"></ion-icon>
+      </div>
+
+
+
+      <h2 #max class="valmax"></h2>
+      <span class="h5s">.</span>
+      <h2 #maxdec class="valmaxdec"></h2>
+      <h3 class="values">
+        Maximo valor
+      </h3>
+
+
+
+      <div>
+        <ion-icon class="green" name="arrow-dropdown"></ion-icon>
+      </div>
+
+      <h2 #min class="valmin"></h2>
+      <span class="h5smin">.</span>
+      <h2 #mindec class="valmindec"></h2>
+      <h3 class="valuesmin">
+        Minimo valor
+      </h3>
+
+
+    </ion-card-content>
+  </ion-card>
+  <div text-center padding>
+    <button ion-button text-center round outline icon-start (click)="addRegistry(product)">
+      <ion-icon color="primary2" name="md-add"></ion-icon>
+      Nuevo Registro
+    </button>
+  </div>
 </ion-content>

@@ -15,7 +15,7 @@ export class ProductServiceProvider {
   public listProducts: Observable<Product[]>;
   public valuesPrice: AngularFirestoreCollection<Registry>;
   public listRegistry: Observable<Registry[]>;
-  lengthListProducts: number;
+  lengthListProducts: number = 0;
 
   constructor(public afs: AngularFirestore) {
     this.products = afs.collection<Product>('product');
@@ -57,7 +57,7 @@ export class ProductServiceProvider {
         return actions.map(item => {
           const data = item.payload.doc.data() as Registry;
           console.log('iiiiittt' + data);
-           //console.log('ddddtttt' + JSON.stringify(this.widgets[0]));
+          //console.log('ddddtttt' + JSON.stringify(this.widgets[0]));
           //this.lengthListProducts = actions.length;
           //const id = item.payload.doc.id;
           return { ...data };

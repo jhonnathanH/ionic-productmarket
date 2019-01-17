@@ -42,14 +42,18 @@ export class AddProductPage {
     console.log('ffffpp' + this.todo.value.categoria);
     let a: Product;
     a = {
-      id: this.productService.lengthListProducts+1,
+      id: this.productService.lengthListProducts + 1,
       name: this.todo.value.productName,
       type: this.todo.value.categoria,
       brand: this.todo.value.categoria,
       thumbnailImageUrl: "",
       price: this.todo.value.amount
     }
-    this.productService.addItem(a);
+    this.productService.addItem(a)
+      .then(() => {
+        this.productService.addRegistry(a, { value: a.price });
+
+      });
     this.todo.reset();
     this.navCtrl.pop();
   }

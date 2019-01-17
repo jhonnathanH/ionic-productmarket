@@ -10,7 +10,7 @@ import { InfoProductPage } from '../info-product/info-product';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  
+
 
   constructor(
     public navCtrl: NavController,
@@ -18,7 +18,7 @@ export class HomePage {
     public toastCtrl: ToastController,
     private modalCtrl: ModalController,
     public productService: ProductServiceProvider) {
-    
+
   }
 
   addProducts() {
@@ -26,12 +26,12 @@ export class HomePage {
     modal.present();
   }
 
-  goToDetails(product:Product){
-    this.navCtrl.push(InfoProductPage, {product:product});
+  goToDetails(product: Product) {
+    this.navCtrl.push(InfoProductPage, { product: product });
   }
 
 
-  
+
   addRegistry(product: Product) {
     console.log('xdxdpresss');
     let alert = this.alertCtrl.create({
@@ -39,7 +39,8 @@ export class HomePage {
       inputs: [
         {
           name: 'newPrice',
-          placeholder: 'nuevo precio'
+          placeholder: 'nuevo precio',
+          type: 'number'
         }
       ],
       buttons: [
@@ -60,7 +61,9 @@ export class HomePage {
               return;
             }
             console.log('xdxd' + data.newPrice);
-            this.productService.addRegistry(product, { value: data.newPrice });
+            let num = parseFloat(data.newPrice);
+            console.log("num3.toFixed(2) is " + num.toFixed(3));
+            this.productService.addRegistry(product, { value: Number(num.toFixed(3)) });
             const toast = this.toastCtrl.create({
               message: 'Item added!',
               duration: 1500,
