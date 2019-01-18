@@ -138,20 +138,21 @@ export class InfoProductPage {
     console.log('ionViewDidLoad InfoProductPage');
     setTimeout(() => {
 
-      this.flip(this.getComponentNum(this.maxValue, 'entero'), this.maxV.nativeElement, this.flipAnimMax, '');
-      this.flip(this.getComponentNum(this.maxValue, 'decimal'), this.maxVdec.nativeElement, this.flipAnimMax, 'decimal');
-      this.flip(this.getComponentNum(this.minValue, 'entero'), this.minV.nativeElement, this.flipAnimMin, '');
-      this.flip(this.getComponentNum(this.minValue, 'decimal'), this.minVdec.nativeElement, this.flipAnimMin, 'decimal');
+      this.flip(this.maxValue,this.getComponentNum(this.maxValue, 'todo'), this.maxV.nativeElement, this.flipAnimMax, 'todo');
+      //this.flip(this.getComponentNum(this.maxValue, 'decimal'), this.maxVdec.nativeElement, this.flipAnimMax, 'decimal');
+      this.flip(this.minValue,this.getComponentNum(this.minValue, 'todo'), this.minV.nativeElement, this.flipAnimMin, 'todo');
+      //this.flip(this.getComponentNum(this.minValue, 'decimal'), this.minVdec.nativeElement, this.flipAnimMin, 'decimal');
     }, 700);
 
   }
 
-  flip(value: number, div: any, fli: any, comp: string) {
+  flip(high:number,value: any, div: any, fli: any, comp: string) {
     if (!fli) {
       fli = new Flip({
         node: div,
         from: this.get9s(value, comp),
-        duration: 2
+        duration: 2,
+        separator: this.isHigh(high)
       });
     }
 
@@ -159,7 +160,16 @@ export class InfoProductPage {
       to: value
     });
   }
+  isHigh(num:number){
+    console.log('dzzz'+num)
+    if(num>999){
+      return ''
+    }else{
+      return '.'
+    }
+  }
   get9s(num: number, v: string) {
+
     if (v == 'decimal') {
       return '999'
     }
@@ -168,6 +178,12 @@ export class InfoProductPage {
     for (let i = 0; i < x; i++) {
       nienS = '9' + nienS;
     }
+    if (v == 'todo' && num > 999) {
+      return nienS
+    }
+    if (v == 'todo') {
+      return nienS 
+    }
     return nienS
   }
   getComponentNum(num: number, caract: String) {
@@ -175,11 +191,15 @@ export class InfoProductPage {
     let valueFixed = num.toFixed(3).toString();
     let decimal = valueFixed.substring(n - 3, n);
     let entero = valueFixed.substring(0, n - 4);
+
     if (caract == 'entero') {
       return Number(entero);
     }
     if (caract == 'decimal') {
       return Number(decimal);
+    }
+    if (caract == 'todo') {
+      return (entero + decimal);
     }
 
   }
