@@ -24,9 +24,7 @@ export class UserServiceProvider {
     //     const id = item.payload.doc.id;
           return {...data};
         })
-      }
-
-      )
+      })
   }
 
   addUser(user: User) {

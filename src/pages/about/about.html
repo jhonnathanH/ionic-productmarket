@@ -1,11 +1,22 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      About
+      Exchange Rate
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+    <ion-card>
+        <ion-card-header text-center padding>
+          Rate $ to BsS
+        </ion-card-header>
+        <ion-card-content text-center>
+          $1 = {{rateBss}} BsS.
+        </ion-card-content>
+      </ion-card>
 
+      <div padding>
+          <button ion-button full small  color="primary" (click)="update()">update Rate</button>
+        </div>
 </ion-content>

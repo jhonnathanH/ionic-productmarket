@@ -16,8 +16,13 @@ export class ProductServiceProvider {
   public valuesPrice: AngularFirestoreCollection<Registry>;
   public listRegistry: Observable<Registry[]>;
   lengthListProducts: number = 0;
+  public rates: AngularFirestoreCollection<Registry>;
+  public listRates: Observable<Registry[]>;
+  lengthRates: number = 0;
+
 
   constructor(public afs: AngularFirestore) {
+    this.rates = afs.collection<Registry>('rates');
     this.products = afs.collection<Product>('product');
     this.listProducts = this.products.snapshotChanges()
       .map(actions => {
@@ -28,9 +33,16 @@ export class ProductServiceProvider {
           //     const id = item.payload.doc.id;
           return { ...data };
         })
-      }
+      })
 
-      )
+    this.listRates = this.rates.snapshotChanges()
+      .map(actions => {
+        return actions.map(item => {
+          const data = item.payload.doc.data() as Registry;
+          this.lengthRates = actions.length;
+          return { ...data };
+        })
+      })
   }
 
   addItem(product: Product) {
@@ -64,5 +76,13 @@ export class ProductServiceProvider {
         })
       })
     return this.listRegistry;
+  }
+
+
+
+  addRate(newregistry: Registry) {
+    const created = firebase.firestore.FieldValue.serverTimestamp();
+    newregistry.created = created;
+    return this.rates.doc((this.lengthRates+1).toString()).set(newregistry);
   }
 }

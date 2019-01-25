@@ -14,8 +14,6 @@ import { Flip } from 'number-flip';
 export class InfoProductPage {
   @ViewChild('max', { read: ElementRef }) private maxV: ElementRef;
   @ViewChild('min', { read: ElementRef }) private minV: ElementRef;
-  @ViewChild('maxdec', { read: ElementRef }) private maxVdec: ElementRef;
-  @ViewChild('mindec', { read: ElementRef }) private minVdec: ElementRef;
   flipAnimMax = null;
   flipAnimMin = null;
   widgets: any;
@@ -29,6 +27,7 @@ export class InfoProductPage {
   newValorB: String[] = [];
   a: number[] = [];
   b: String[] = [];
+ 
   public lineChartData: Array<any> = [{ data: ["65", "59", "80", "81", "56", "55", "40"], label: 'Series A' }];
   public lineChartLabels: Array<any> = ['0', '1', '2', '3', '4', '5', '6'];
   public lineChartOptions: any = { responsive: true };
@@ -69,6 +68,7 @@ export class InfoProductPage {
     public toastCtrl: ToastController,
     public alertCtrl: AlertController
   ) {
+    let loadingPage = this.loading("Cargando...");
     this.product = this.navParams.get("product");
 
     if (this.product != null) {
@@ -127,7 +127,7 @@ export class InfoProductPage {
     });
 
 
-
+    loadingPage.dismiss();
   }
 
   ionViewWillEnter() {
@@ -139,9 +139,7 @@ export class InfoProductPage {
     setTimeout(() => {
 
       this.flip(this.maxValue,this.getComponentNum(this.maxValue, 'todo'), this.maxV.nativeElement, this.flipAnimMax, 'todo');
-      //this.flip(this.getComponentNum(this.maxValue, 'decimal'), this.maxVdec.nativeElement, this.flipAnimMax, 'decimal');
       this.flip(this.minValue,this.getComponentNum(this.minValue, 'todo'), this.minV.nativeElement, this.flipAnimMin, 'todo');
-      //this.flip(this.getComponentNum(this.minValue, 'decimal'), this.minVdec.nativeElement, this.flipAnimMin, 'decimal');
     }, 700);
 
   }
@@ -191,7 +189,9 @@ export class InfoProductPage {
     let valueFixed = num.toFixed(3).toString();
     let decimal = valueFixed.substring(n - 3, n);
     let entero = valueFixed.substring(0, n - 4);
-
+    if (num>999){
+      return Number(entero);
+    }
     if (caract == 'entero') {
       return Number(entero);
     }
